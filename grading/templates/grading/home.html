@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essay Score Predictor</title>
+
+    <style>
+        /* Background Image */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url("{% static '2.jpg' %}") no-repeat center center/cover;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        /* Dark Overlay with Animation */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.0);
+            z-index: -1;
+            animation: backgroundFade 5s infinite alternate;
+        }
+
+        @keyframes backgroundFade {
+            0% { background: rgba(0, 0, 0, 0.9); }
+            100% { background: rgba(0, 0, 0, 0.1); }
+        }
+
+        /* Glassmorphism Container */
+        .container {
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            transition: transform 0.5s ease-in-out;
+            
+        }
+
+       
+        h1 {
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        /* Stylish Input Fields */
+        input[type="file"], textarea {
+            width: 95%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 10px;
+            transition: 0.3s;
+            border-color: #ff9800;
+        }
+
+        input[type="file"]:hover, textarea:hover {
+            border-color:rgb(0, 174, 255);
+        }
+
+        textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Animated Button */
+        button {
+            background:rgb(0, 174, 255);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+        }
+
+        button:hover {
+            background: #e68900;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload an Essay to Predict its Score</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label>Upload Image:</label>
+            <input type="file" name="image"><br><br>
+            
+            <label>Or Enter Essay Text:</label><br>
+            <textarea name="essay" rows="7" placeholder="Type your essay here..."></textarea><br><br>
+            
+            <button type="submit">Predict Score</button>
+        </form>
+    </div>
+</body>
+</html>
